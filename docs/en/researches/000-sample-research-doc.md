@@ -1,4 +1,4 @@
-# 2. Switch to hybrid architecture
+# 0. Switch to hybrid architecture
 
 Date: 2024-01-19
 
