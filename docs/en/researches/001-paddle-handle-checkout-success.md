@@ -31,7 +31,7 @@ After a successful checkout transaction within Rikai AI, clients should receive 
 
 ### Decision
 
-Decision on creating a web page to accommadate customers succesful transaction to then be routed using `successUrl` for the intended webpage that confirms the subscription rights and the plan agreement details.
+Decision on creating a web page to accommadate customers succesful transaction to then be routed using `successUrl` for the intended webpage that confirms the subscription rights and the plan aggreement details.
 
 ### Status
 
