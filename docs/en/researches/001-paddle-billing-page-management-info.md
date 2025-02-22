@@ -17,11 +17,10 @@ Date: 2025-02-20
 - [Others](#others)
   - [ADR Template References](#adr-template-references)
 
-ADR Owner: [Developer Name]
+ADR Owner: John Andrei C. Cabili
 
 Stakeholders:
 - AI Core Team
-- Security Compliance Team
 
 ## Summary
 
