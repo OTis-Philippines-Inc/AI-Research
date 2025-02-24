@@ -66,6 +66,13 @@ We chose `dynamic route implementation` because it allows us to meet all of our 
 
 ## Notes
 
+- Payment recovery (dunning) is handled by Paddle's Retain feature.
+- When a payment fails, Retain automatically:
+  - Attempts to recover the failed payment
+  - Sends failure notifications to customers
+  - Retries the payment over a configured period
+  - Redirects customers to the default payment link if automated recovery fails 
+
 ## Others
 
 ### ADR Template References
