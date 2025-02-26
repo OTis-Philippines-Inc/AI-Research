@@ -1,6 +1,6 @@
 # 5. How to build a default payment link page
 
-Date: 2025-02-19
+Date: 2025-02-26
 
 ## Contents
 
@@ -26,11 +26,11 @@ Stakeholders:
 
 ### Issue
 
-RikaiAI needs to implement a default payment link page that handles cases where customers need to update their payment information or when payment recovery is needed. The default payment link serves as a fallback URL that Paddle can redirect customers to when they need to update their payment details or when automatic payment recovery attempts fail.
+RikaiAI needs to implement a default payment link page that acts as a quick way to open Paddle checkout for a transaction. It also handles cases where customers need to update their payment information or when payment recovery is needed. The default payment link serves as a fallback URL that Paddle can redirect customers to when they need to update their payment details or when automatic payment recovery attempts fail.
 
 ### Decision
 
-Decided to implement a dynamic route at `https://slack-translate.rikaiai.com/checkout` that will serve as the default payment link, handling both new subscriptions and payment updates.
+Decided to implement a separate route implementation at `https://slack-translate.rikaiai.com/checkout` that will serve as the default payment link, handling both new subscriptions and payment updates.
 
 ### Status
 
@@ -38,40 +38,36 @@ Proposed
 
 ### Consequences
 
-Will provide a consistent entry point for all payment-related activities, but requires more careful state management to handle different entry scenarios (new subscriptions vs payment updates).
+Will provide clearer separation of concerns, simpler state management per route, and better align with ongoing backend refactoring efforts, but it will require managing multiple URLs in Paddle's settings.
 
 ## Decision Drivers
 
-- **Payment recovery:** Need to provide a reliable way for customers to update payment information when automatic recovery fails.
-- **State management:** Need to handle different entry scenarios and customer states.
-- **System integration:** Need to integrate with Paddle's payment recovery system and retain features.
+- **Simple to implement and extend:** The solution should be simple to develop and easy to extend with additional functionality in the future.
+- **Future-proof:** The solution should align with the broader architectural direction and support long-term maintainability.
 
 ## Considered Options
 
 - **Dynamic route implementation:** Implement a dynamic route that handles both new subscriptions and payment updates. In this case, a single route at `/checkout` would be implemented that determines its behavior based on URL parameters (e.g., `status`, `customerId`, `recoveryId`).
-- **Separate route implementation:** Implement separate routes for new subscriptions and payment updates. In this case, separate routes would be implemented like `/checkout/new` and `/checkout/update`.
-- **Paddle-hosted recovery:** Use Paddle's hosted payment update page instead of a custom solution, relying entirely on Paddle's default hosted pages for payment updates and recovery scenarios and only implementing our custom page for new subscriptions.
+- **Separate route implementation:** Implement separate routes for new subscriptions and payment updates. In this case, separate routes would be implemented like (e.g., `/checkout/new` and `/checkout/update`.)
 
 ## Decision Outcome
 
-We chose `dynamic route implementation` because it allows us to meet all of our decision drivers, and serves as a good middle ground between the ease of maintenance of `paddle-hosted recovery` and the control and customization in `separate route implementation`.
+We chose `separate route implementation`  because it provides clearer separation of concerns and simpler state management per route, aligning with the current backend refactoring efforts to separate endpoints for different functionalities.
 
 ## Pros and Cons of the Options
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| Dynamic route implementation | - It is arguably the most flexible option, as it centralizes all payment-related logic in one place.<br>- Simplifies URL management in Paddle. | - Requires more careful state management than Paddle-hosted solution.<br>- Needs more thorough testing across multiple scenarios. |
-| Separate route implementation | - It is the most customizable option here.<br>- Allows for specialized handling of each payment scenario. | - It is the most complex to maintain option here.<br>- Leads to code duplication between routes. |
-| Paddle-hosted recovery | - It is the least complex to maintain option here.<br>- Automatically receives security udpates from Paddle.<br>- Has built-in error handling for common payment scenarios. | - It is the least customizable option here.<br>- Difficult to add custom validation or business logic. |
+| Dynamic route implementation | - Single entry point for all payment activities.<br>- Simplifies URL management in Paddle settings. | - More complex state management.<br>- Requires careful handling of different scenarios. |
+| Separate route implementation | - Clearer separation of concerns.<br>- Simpler state management per route. | - Multiple URLs to manage in Paddle settings.<br>- Requires consistent branding across routes. |
 
 ## Notes
 
-- Payment recovery (dunning) is handled by Paddle's Retain feature.
-- When a payment fails, Retain automatically:
-  - Attempts to recover the failed payment
-  - Sends failure notifications to customers
-  - Retries the payment over a configured period
-  - Redirects customers to the default payment link if automated recovery fails 
+- [Payment Recovery](https://developer.paddle.com/concepts/retain/payment-recovery-dunning) (dunning) is handled by Paddle's Retain feature.
+- When a payment fails, Retain can automatically:
+  - Retry payments throughout the dunning window and enable Tactical Retries to attempt unsuccessful payments at the best times depending on the customer's location, the type of payment method, and other factors.
+  - Send an email that has been optimized for hundreds of thousands of transactions.
+  - Pause or cancel subscriptions once all attempts to collect payments have been made.
 
 ## Others
 
