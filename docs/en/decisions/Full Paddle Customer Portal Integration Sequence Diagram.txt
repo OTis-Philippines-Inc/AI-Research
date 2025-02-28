@@ -1,0 +1,22 @@
+title Full Paddle Customer Portal Integration
+
+sequenceDiagram
+    participant User
+    participant SlackFrontend
+    participant SlackBackend
+    participant Paddle
+
+    User->>SlackFrontend: Requests Payment Management
+    SlackFrontend->>SlackBackend: Fetch User Payment Info
+    SlackBackend->>Paddle: Query Payment Details
+    Paddle-->>SlackBackend: Return Payment Info
+    SlackBackend-->>SlackFrontend: Send Payment Info
+    SlackFrontend-->>User: Display Payment Info
+
+    User->>SlackFrontend: Open Paddle Customer Portal
+    SlackFrontend->>Paddle: Redirect User to Portal
+    Paddle-->>User: User Manages Payment
+
+    Paddle->>SlackBackend: Notify Payment Update (Webhook)
+    SlackBackend->>SlackFrontend: Store Update & Notify User
+    SlackFrontend-->>User: Confirm Payment Update
