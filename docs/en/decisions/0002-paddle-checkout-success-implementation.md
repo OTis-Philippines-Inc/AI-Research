@@ -52,7 +52,6 @@ By having to developed additional web page for Rikai AI, it will introduce addit
 - **Default paddle success page:** Notifies the customer of their transaction via page and email of their order details.
 - **Customized success page:** Redirects the customer after successful transaction to whatever data-success-url is set in HTML or the `Paddle.Checkout.open()` attribute called `successUrl` has been setted. It can also be configured during initialization step through process of `eventCallback`.
 - **Email confirmation:** Using email as source of confirmation while having the option of using `Webhooks` for additional control during email phase. This process skips the success page entirely through routing back to main page or closure of the checkout.
-- **Customized success workflow:** Maximizing control over the process using `Webhooks` to automate the post-purchase results like, sending API keys, the emailing of order details, and can add additional processes.
 
 ## Decision Outcome
 
@@ -65,14 +64,14 @@ We chose `Customized Success Page`because it allows us to have the flexible choi
 | **Default paddle success page** | - The easiest option to implement, requiring no additional content or configuration. <br> - Efficient in terms of performance and ease of use for end users. <br> - Suitable for providing a quick confirmation result. <br> | - Limited flexibility due to restricted control over the page. <br> - Inability to customize the design may impact website consistency. <br> |  
 | **Customized success page** | - Easily accessible to developers, reducing ambiguity. <br> - Allows greater control over the confirmation details provided to the customer. <br> - Acts as a middle ground between a simple notification and a fully customized workflow via `Webhooks`. <br> - While not the easiest option, it is still relatively simple to integrate by adding a `successUrl` argument. <br> | - Adds an extra step to the development process. <br> - May not always be fully utilized due to its relatively simple nature. <br> |  
 | **Email confirmation** | - Simple to implement, similar to the default success page. <br> - The most efficient option in terms of performance. <br> | - Not always reliable for notifying customers. <br> - Introduces redundancy for non-sensitive data. <br> |  
-| **Customized success workflow** | - Provides full control to the maintainer. <br> - Eliminates ambiguity in the workflow. <br> - Enables automation of various processes, allowing for seamless pipeline integration. <br> | - Often unnecessary if only simple confirmation is required, introducing unnecessary complexity and risk. <br> - The most difficult option to implement compared to others. <br> - May introduce redundancy that outweighs the benefits of increased control. <br> |  
 
 
 ## Notes
 
-- Each option provided is interconnected and often built in conjunction with others. For example, email confirmation is automatically handled by the Paddle checkout and invoice but can be added separately in cases where exclusion from the web page is chosen. In such cases, additional steps would be required to include confirmation with the email billing details.
+- Each option provided is interconnected and often built in conjunction with others. For example, email confirmation is automatically handled by the Paddle checkout but can be added separately in cases where exclusion from the web page is chosen. In such cases, additional steps would be required to include confirmation with the email billing details.
 
 ## Others
+- ![sucess page](sucess.png)
 
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
