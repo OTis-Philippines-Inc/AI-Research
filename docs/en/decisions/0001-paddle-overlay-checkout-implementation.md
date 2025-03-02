@@ -78,6 +78,11 @@ We chose to integrate the API using `JavaScript`, as it allows for fast implemen
 
 ## Others
 
+- A screenshot for the GUI overlay in `Paddle.Checkout.open()`.
+![light-scheme.png](./light.png)
+- The dark theme color for the overlay design.
+![dark-scheme.png](./dark-theme.png)
+
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
 - By [Jeff Tyree and Art Akerman](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-by-jeff-tyree-and-art-akerman)
