@@ -71,7 +71,7 @@ We chose `Customized Success Page`because it allows us to have the flexible choi
 - Each option provided is interconnected and often built in conjunction with others. For example, email confirmation is automatically handled by the Paddle checkout but can be added separately in cases where exclusion from the web page is chosen. In such cases, additional steps would be required to include confirmation with the email billing details.
 
 ## Others
-- ![sucess page](sucess.png)
+- ![sucess page](./sucess.png)
 
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
