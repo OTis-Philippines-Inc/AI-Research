@@ -31,7 +31,7 @@ After a successful checkout transaction within Rikai AI, clients should receive 
 
 ### Decision
 
-Decision on creating a web page to accommadate customers succesful transaction to then be routed using `successUrl` for the intended webpage that confirms the subscription rights and the plan aggreement details.
+Decision was made to apply the default paddle success page for minimal effort but convinient to the developer and user. It doesn't require additional steps besides the overlay setting for `Paddle.Checkout.open()`.
 
 ### Status
 
@@ -39,13 +39,14 @@ Proposed
 
 ### Consequences
 
-By having to developed additional web page for Rikai AI, it will introduce additional steps to planning, designing, developing, and QA testing for the given web page.
+The decision to use the simple paddle success page results into no additional code integration besides the standard invoke for the `Paddle.Checkout.open()` overlay settings. In exchange, control over the design for the success page is compromised and may not fit the theme for the website.
 
 ## Decision Drivers
 
-- **Development flexibility:** Creating a custom web page allows developers to modify and iterate on the design, accommodating both simple and complex requirements. This provides greater flexibility compared to relying on default design choices.
-- **Convenience to customers:** While email confirmations are possible, they are not ideal and inapproriate for alerting customers subscription outcome. Sensitive data should be handled securely, and a confirmation web page provides a more immediate and user-friendly solution.
-- **Balancing control & minimalist:** While increased control can introduce complexity. Rikai AI as a product does not require a complex workflow to be used as confirmation purposes. By customizing, a customized web page allows for potential future scalability without unnecessary complications.
+- **Simplistic Integration:** The success page is a small portion of the design aspect for the entire frontend design. Because of its small presence to the user, the offer for a simple design tradeoffs would not affect the user experience in the slightest. 
+- **Less Redundancy:** Paddles default page provides the common requirements often found on many different success style pages. Offering a modern UI simplistic design and thus removes the need for time consuming planning and development.
+- **Pragmatic Choice:** Integration seeks a quick implementation of the checkout with the least inconvinience. Because of the modern design for both light themes and dark themes (using the `theme: <light/dark>` option), can be enough given the specific goal of alerting the user.
+- **Conviniency Between Parties:** User does not require over-engineer designs given that the success page is not the focal point of the checkout page. It is just a handle for confirmation given to users thus, lessening the time needed for the developers and operations alike in implementation. 
 
 ## Considered Options
 
@@ -55,15 +56,15 @@ By having to developed additional web page for Rikai AI, it will introduce addit
 
 ## Decision Outcome
 
-We chose `Customized Success Page`because it allows us to have the flexible choice of displaying contents that we want for the customer while openning the door for more complex designs. While the default option maybe capable enought to display the contents that we want, if it so happends that we require more sophisticated design. With the `Customized Success Page`, changes would be least out of the other option.
+We chose to rely on the Paddles default success page for a quick integration with procriatory messages 
 
 ## Pros and Cons of the Options
 
 | **Option** | **Pros** | **Cons** |  
 |------------|---------|---------|  
-| **Default paddle success page** | - The easiest option to implement, requiring no additional content or configuration. <br> - Efficient in terms of performance and ease of use for end users. <br> - Suitable for providing a quick confirmation result. <br> | - Limited flexibility due to restricted control over the page. <br> - Inability to customize the design may impact website consistency. <br> |  
+| **Default paddle success page** | - The easiest option to implement, requiring no additional content or configuration. <br> - Efficient in terms of performance and ease of use for end users. <br> - Suitable for providing a quick confirmation result. <br> | - Limited flexibility due to restricted control over the page. <br> |  
 | **Customized success page** | - Easily accessible to developers, reducing ambiguity. <br> - Allows greater control over the confirmation details provided to the customer. <br> - Acts as a middle ground between a simple notification and a fully customized workflow via `Webhooks`. <br> - While not the easiest option, it is still relatively simple to integrate by adding a `successUrl` argument. <br> | - Adds an extra step to the development process. <br> - May not always be fully utilized due to its relatively simple nature. <br> |  
-| **Email confirmation** | - Simple to implement, similar to the default success page. <br> - The most efficient option in terms of performance. <br> | - Not always reliable for notifying customers. <br> - Introduces redundancy for non-sensitive data. <br> |  
+| **Email confirmation** | - Simple to implement, similar to the default success page. <br> - The most efficient option in terms of performance. <br> | - Requires an alert for the user, to notify checkout success which often can be hassle to the user who will require to open the email just to be notified for the state of transaction. <br> - Introduces redundancy for non-sensitive data. <br> - To make sure the user knows the transaction went in, it requires a simple additional alert from the website to reassure details have been sent to the email. This will require additional design. |
 
 
 ## Notes
@@ -71,7 +72,10 @@ We chose `Customized Success Page`because it allows us to have the flexible choi
 - Each option provided is interconnected and often built in conjunction with others. For example, email confirmation is automatically handled by the Paddle checkout but can be added separately in cases where exclusion from the web page is chosen. In such cases, additional steps would be required to include confirmation with the email billing details.
 
 ## Others
-- ![sucess page](./success.png)
+- A screenshot of the success page made provided by the Paddle API.
+![sucess page](./success.png)
+- A color scheme change after configuring `theme: 'black'`, an option for `Paddle.Checkout.open`.
+![black-theme-page](./black-theme.png)
 
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
