@@ -21,6 +21,7 @@ Date: 2025-03-06
 
 ADR Owner:
 - Isiah Jordan Dimaunahan
+- Victor Caro
 
 Stakeholders:
 - AI core team
