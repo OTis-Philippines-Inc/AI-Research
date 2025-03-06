@@ -1,6 +1,6 @@
 # 0. Switch to hybrid architecture
 
-Date: 2025-03-03
+Date: 2025-03-06
 
 ## Contents
 
@@ -78,6 +78,8 @@ Proposed
 
 - **whichlang:** An alternative to whatlang, its approach applies a `Multiclass Logistic Regression` with a (2, 3, 4) n-gram preprocessing step for a given string input. The crate supports 16 different languages: `Arabic`, `Mandarin`, `German`, `English`, `French`, `Hindi`, `Italian`, `Japanese`, `Korean`, `Dutch`, `Portuguese`, `Russian`, `Spanish`, `Swedish`, `Turkish`, `Vietnamese`. To detect a specific string of text to a corresponding language, we can invoke the function `whichlang::detect_language` which takes a `&str` as an argument. In the `weights.rs`, language selection and wieghts of the model inlcuding the intercept is listed out within. In comparison to whatlang, benchmark result shows high accurate results over the restricted 16 languages against whatlang. It was also notable that the model pipeline is a lot more faster than the opposition thanks to the smaller model architecture.
 
+- **cld3-rs:** A Rust binding for Google's Compact Language Detector 3 (CLD3). It is a neural network-based approach that supports detecting 107 languages. CLD3 is particularly optimized for short text language detection. The model is relatively lightweight and efficient. The crate provides an easy-to-use API for language detection. However, the model does not have language whitelisting capabilities.
+
 ## Decision Outcome
 
 
@@ -91,15 +93,14 @@ Proposed
 
 ## Others
 
-- Whichlang supported languages and a simple execution of the whichlang detection.
-*Language List*
-![whichlang-lang](./whichlang-lang.png)
-
-*Sample Code*
-![whichlang-sample](./whichlang-sample.png)
-
-*Code Output*
-![whichlang-exec](./whichlang-exec.png)
+- Whichlang supported languages and a simple execution of the whichlang detection.  
+  - *Language List*<br>![whichlang-lang](./whichlang-lang.png)
+  - *Sample Code*<br>![whichlang-sample](./whichlang-sample.png)
+  - *Code Output*<br>![whichlang-exec](./whichlang-exec.png)
+- cld3-rs supported languages and a simple execution of the cld3-rs detection.  
+  - [*Language List*](https://github.com/ttys3/cld3-rs?tab=readme-ov-file#supported-languages)
+  - *Sample Code*<br>![cld3-sample](./cld3-sample.png)
+  - *Code Output*<br>![cld3-exec](./cld3-exec.png)
 
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
