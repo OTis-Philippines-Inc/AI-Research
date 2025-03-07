@@ -22,6 +22,7 @@ Date: 2025-03-06
 ADR Owner:
 - Isiah Jordan Dimaunahan
 - Victor Caro
+- John Andrei Cabili
 
 Stakeholders:
 - AI core team
@@ -81,7 +82,7 @@ Proposed
 
 - **cld3-rs:** A Rust binding for Google's Compact Language Detector 3 (CLD3). It is a neural network-based approach that supports detecting 107 languages. CLD3 is particularly optimized for short text language detection. The model is relatively lightweight and efficient. The crate provides an easy-to-use API for language detection. However, the model does not have language whitelisting capabilities.
 
-## Decision Outcome
+- **rust-cld2**: A probabilistic language detection library that can detect over 83 languages. It utilizes a Naïve Bayesian classifier, scoring n-grams of text to determine the most probable language. It is optimized for larger text bodies, typically web pages of at least 200 characters, and can return the top three languages found in mixed-language texts. CLD2 works by analyzing sequences of characters and word patterns, ensuring a high degree of accuracy for most languages. It is especially suited for identifying languages on web pages, filtering out irrelevant data such as punctuation, digits, and HTML tags. However, CLD2 does not offer built-in support for language whitelisting, which may be a limitation when targeting specific languages, as it may return languages outside the predefined whitelist.
 
 
 ## Pros and Cons of the Options
@@ -98,11 +99,17 @@ Proposed
   - *Language List*<br>![whichlang-lang](./whichlang-lang.png)
   - *Sample Code*<br>![whichlang-sample](./whichlang-sample.png)
   - *Code Output*<br>![whichlang-exec](./whichlang-exec.png)
+    
 - cld3-rs supported languages and a simple execution of the cld3-rs detection.  
   - [*Language List*](https://github.com/ttys3/cld3-rs?tab=readme-ov-file#supported-languages)
   - *Sample Code*<br>![cld3-sample](./cld3-sample.png)
   - *Code Output*<br>![cld3-exec](./cld3-exec.png)
-
+    
+- rust-cld2 supported languages and a simple execution of the rust-cld2 detection.  
+  - [*Language List*](https://github.com/CLD2Owners/cld2?tab=readme-ov-file#supported-languages)
+  - *Sample Code*<br>![cld2-sample](./cld2-sample.png)
+  - *Code Output*<br>![cld2-exec](./cld2-exec.png)
+    
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
 - By [Jeff Tyree and Art Akerman](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-by-jeff-tyree-and-art-akerman)
