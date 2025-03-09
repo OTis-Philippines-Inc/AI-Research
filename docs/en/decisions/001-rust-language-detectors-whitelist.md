@@ -84,6 +84,8 @@ Proposed
 
 - **rust-cld2**: A probabilistic language detection library that can detect over 83 languages. It utilizes a Naïve Bayesian classifier, scoring n-grams of text to determine the most probable language. It is optimized for larger text bodies, typically web pages of at least 200 characters, and can return the top three languages found in mixed-language texts. CLD2 works by analyzing sequences of characters and word patterns, ensuring a high degree of accuracy for most languages. It is especially suited for identifying languages on web pages, filtering out irrelevant data such as punctuation, digits, and HTML tags. However, CLD2 does not offer built-in support for language whitelisting, which may be a limitation when targeting specific languages, as it may return languages outside the predefined whitelist.
 
+- **langweave** A Rust library designed for internationalization (i18n) and localization. It includes language detection, language code conversion, and multilingual content management. Langweave detects only 11 languages—English, French, German, Spanish, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, and Russian—based on its source files. Additionally, it does not offer built-in whitelisting or language hinting. Compared to other detectors, Langweave is better suited for localization tasks rather than strict language detection with filtering.
+
 
 ## Pros and Cons of the Options
 
@@ -109,6 +111,12 @@ Proposed
   - [*Language List*](https://github.com/CLD2Owners/cld2?tab=readme-ov-file#supported-languages)
   - *Sample Code*<br>![cld2-sample](./cld2-sample.png)
   - *Code Output*<br>![cld2-exec](./cld2-exec.png)
+
+- langweave supported languages and a simple execution of the langweave detection.  
+  - *Language List*<br>![langweave-lang](./langweave-lang.png)
+  - *Sample Code*<br>![langweave-sample](./langweave-sample.png)
+  - *Code Output*<br>![langweave-exec](./langweave-exec.png)
+  - *References*<br>[Langweave GitHub Repository](https://github.com/sebastienrousseau/langweave)<br>[Full API Documentation](https://docs.rs/langweave/latest/langweave/)
     
 ### ADR Template References
 - By [Michael Nygard](https://github.com/joelparkerhenderson/architecture-decision-record/tree/main/locales/en/templates/decision-record-template-of-the-madr-project)
