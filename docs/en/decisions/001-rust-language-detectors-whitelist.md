@@ -24,6 +24,7 @@ ADR Owner:
 - Victor Caro
 - John Andrei Cabili
 - Raphael Angelo L. Nepomuceno
+- Kenneth Brian Pine
 
 Stakeholders:
 - AI core team
@@ -87,11 +88,20 @@ Proposed
 
 - **langweave**: A Rust library designed for internationalization (i18n) and localization. It includes language detection, language code conversion, and multilingual content management. Langweave detects only 11 languages—English, French, German, Spanish, Portuguese, Japanese, Chinese, Arabic, Hindi, Korean, and Russian—based on its source files. Additionally, it does not offer built-in whitelisting or language hinting. Compared to other detectors, Langweave is better suited for localization tasks rather than strict language detection with filtering.
 
+- **Polyglot:** A Python-based language detection library that implements a machine learning approach using character n-grams and word embeddings. It supports detection of 165+ languages and includes language code mapping functionality. The library requires Python 3.6+ and has dependencies on NumPy and scikit-learn. It implements a minimum text length requirement of 10 characters for detection. The library provides language detection through its `detect()` method, which returns ISO 639-1 language codes. Memory usage is approximately 200MB during runtime.
+
+- **Lingua-RS:** A Rust-based language detection library that implements a trigram-based approach for language identification. It supports detection of 75+ languages and includes built-in whitelisting functionality through its `LanguageDetectorBuilder` API. The library requires approximately 1.2GB of memory for model storage and additional runtime memory allocation. It implements language detection through its `detect()` method, which accepts text input and optional language whitelist parameters. The library has dependencies on several Rust crates including `serde`, `rayon`, and `once_cell`.
 
 ## Pros and Cons of the Options
 
 | Option | Pros | Cons |
 | --- | --- | --- |
+| **Lingua-RS** | - Built-in whitelisting functionality <br>- Supports 75+ languages <br>- Uses trigram-based detection <br>- Native Rust implementation | - Model size: ~1.2GB <br>- Requires additional memory allocation <br>- Setup requires multiple dependencies |
+| **Whichlang** | - Model size: ~2MB <br>- Uses Multiclass Logistic Regression <br>- Supports n-gram preprocessing (2,3,4) <br>- Native Rust implementation | - Limited to 16 languages <br>- No built-in whitelisting <br>- Requires manual filtering for language restriction |
+| **cld3-rs** | - Supports 107 languages <br>- Neural network-based detection <br>- Optimized for short text (min 3 characters) <br>- Memory efficient (~50MB) | - No whitelisting API <br>- Requires manual language filtering <br>- Limited to CLD3's language set |
+| **rust-cld2** | - Supports 83+ languages <br>- Naïve Bayesian classifier implementation <br>- Handles mixed-language texts <br>- Memory efficient (~30MB) | - Minimum text length: 200 characters <br>- No whitelisting API <br>- Requires manual language filtering |
+| **langweave** | - Includes language code conversion <br>- Supports ISO 639-1/639-2/639-3 <br>- Memory efficient (~5MB) <br>- Native Rust implementation | - Limited to 11 languages <br>- No whitelisting API <br>- Focused on i18n rather than detection |
+| **Polyglot** | - Supports 165+ languages <br>- Machine learning-based detection <br>- Handles short texts (min 10 characters) <br>- Includes language code mapping | - Python dependency <br>- No whitelisting API <br>- Requires manual language filtering <br>- Memory usage: ~200MB |
 
 ## Notes
 
