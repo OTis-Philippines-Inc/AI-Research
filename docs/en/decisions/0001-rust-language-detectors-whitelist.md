@@ -1,4 +1,4 @@
-# 0. Switch to hybrid architecture
+# 16. Research on language detectors with language whitelisting capabilities
 
 Date: 2025-03-06
 
